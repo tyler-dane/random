@@ -4,18 +4,19 @@
 - Purpose: Quickly show the steps needed to set up a Java development environment using Docker. 
 
 
+## Using Pre-Existing Containers
+
 ### Download an image
 `docker container run jboss/wildfly`
 - Will download the image from Docker Hub
 
-## Using Pre-Existing Containers
 ### Run a container
 
 `docker container run -it --name web jboss/wildfly bash`
 - Replace `-it` for `-d` to run in detached mode
 - `bash` sends your to the container's terminal
 
-### Get port image
+### Get port number
 `docker container ls`
 
 ### Map port to host
@@ -148,12 +149,21 @@ CMD echo "This is v1"
 
 
 ### Other
-`docker container ls -a`
-`docker container rm -f <name>`
-`docker container logs <container>`
-`docker history <image>`
-- Lists specific commands used to create/modify an image
-- `docker image rm -f $(docker image ls -aq)` #Remove all existing images
+
+- `docker container ls -a`
+- `docker container rm -f <name>`
+- `docker container logs <container>`
+- `docker history <image>`
+    - Lists specific commands used to create/modify an image
+- `docker image rm -f $(docker image ls -aq)`
+    - Remove all existing images
+
+#### Clean up
+- `docker images -a`
+- `docker system prune`
+    - removes dangling resources (images, containers, volumes not associated with container)
+- `docker system prune -a`
+    - Removes any stopped containers and all unused images (not just dangling)
 
 
 ### Reminders
