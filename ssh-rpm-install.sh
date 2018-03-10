@@ -5,7 +5,7 @@
 
 # Purpose: Make it easier to install an RPM on a remote server without sacrificing security.
 ## The beauty of using this script is that it allows you to sign in to a remote server, escalate to root,
-## and run subsequent commands, all WITHOUT sending any plain plaintext passwords. 
+## and run subsequent commands, all WITHOUT sending any plain text passwords. 
 
 # Usage:
 ## 1) Replace example variables with your own
@@ -24,12 +24,12 @@
 # To-Dos:
 ## Suppress errors
 
-## Global Variables
+# Global Variables
 
-# Place ${COLOR} before text to color
-## NOTE 1: Using these colors requires the 'echo -e' flag, which enables interpretation of backslash escapes
-### Example: echo -e "Enter ${RED}ONE${NC} IP, then return."
-## NOTE 2: \033[ references cursor position, 1;32 references (1) font style (32) font color
+### Place ${COLOR} before text to color
+#### NOTE 1: Using these colors requires the 'echo -e' flag, which enables interpretation of backslash escapes
+##### Example: echo -e "Enter ${RED}ONE${NC} IP, then return."
+#### NOTE 2: \033[ references cursor position, 1;32 references (1) font style (32) font color
 RED="\033[1;31m"
 BLUE=" \033[1;34m"
 NC="\033[0m" # Turns coloration OFF - place ${NC} after text to color
