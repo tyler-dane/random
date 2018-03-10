@@ -14,10 +14,10 @@
 
 ## Cheatsheets
 
-[Bash Cheatsheet](bash-cheatsheet.md)
+[Bash Cheatsheet](cheatsheets/bash-cheatsheet.md)
 
-[Vim Cheatsheet](vim-cheatsheet.md)
+[Vim Cheatsheet](cheatsheets/vim-cheatsheet.md)
 
-[Xbindkeys Cheatsheet](xbindkeys.md)
+[Xbindkeys Cheatsheet](cheatsheets/xbindkeys.md)
 
 
