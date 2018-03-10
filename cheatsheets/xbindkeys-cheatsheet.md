@@ -1,5 +1,3 @@
-***REMOVED***
-
 ## Install packages
 - xvkbd
 - xbindkeys
