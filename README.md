@@ -18,6 +18,6 @@
 
 [Vim Cheatsheet](cheatsheets/vim-cheatsheet.md)
 
-[Xbindkeys Cheatsheet](cheatsheets/xbindkeys.md)
+[Xbindkeys Cheatsheet](cheatsheets/xbindkeys-cheatsheet.md)
 
 
