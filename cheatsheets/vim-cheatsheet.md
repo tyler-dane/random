@@ -67,8 +67,8 @@ m(x)                        #Marks point in file, where (x) is any lowercase cha
 :<up/down arrow>        # Scroll through history
 ### Substitution
 ```bash
-:s/old/new/g        #Substitutes 'old' for 'new' in current line only
-:s/old/new/gc       #Globally substitutes 'old' for 'new', prompting for confirmation for each substitution
+:%s/old/new/g        #Substitutes 'old' for 'new' in current line only
+:%s/old/new/gc       #Globally substitutes 'old' for 'new', prompting for confirmation for each substitution
 :%s/old/new/g       #Globally substitutes 'old' for 'new' without prompting for confirmation
 :#,#s/old/new/g     #Substitutes 'old' for 'new', where #,# are the line numbers of the range of lines to substitute  
 ```
