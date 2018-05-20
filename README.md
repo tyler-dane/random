@@ -1,5 +1,6 @@
 # Source Code & Documentation for Developers 
- 
+These are scripts, programs, and tutorials for projects that I have completed. I am sharing them here in hopes that someone else might find them useful. 
+
 ## Source Code
 ### Bash
 [*Securely* Run Bash Script on Remote Server as Root](src/ssh-rpm-install.sh)
@@ -36,7 +37,7 @@
 
 [Troubleshooting](gitlab/troubleshooting.md)
 
-## VMware vSphere
+### VMware vSphere
 [Add a Synology NAS as a vSphere NTFS datastore](vmware/nas-datastore.md)
 
 ### Other  
