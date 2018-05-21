@@ -47,6 +47,8 @@ Handy cheatsheets for Unix/Linux developers and system administrators
 ### VMware vSphere
 [Add a Synology NAS as a vSphere NTFS datastore](vmware/nas-datastore.md)
 
+[Share a Linux directory across your VMware Datacenter via NFS](vmware/nfs-mount-linux-vmware.md)
+
 ### Other  
 #### Fedora
 [Dual-boot Fedora and Windows 10](dual-boot-fedora-windows10.md)
