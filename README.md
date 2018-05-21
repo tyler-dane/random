@@ -1,7 +1,6 @@
-# Source Code & Documentation for Developers 
-These are scripts, programs, and tutorials for projects that I have completed. I am sharing them here in hopes that someone else might find them useful. 
+These are programs, cheatsheets, and tutorials for projects that I have completed. I am sharing them here in hopes that someone else might find them useful. 
 
-## Source Code
+# Source Code
 ### Bash
 [*Securely* Run Bash Script on Remote Server as Root](src/ssh-rpm-install.sh)
 - Authenticate and run commands without sending passwords in plain-text
@@ -13,7 +12,10 @@ These are scripts, programs, and tutorials for projects that I have completed. I
 [Revert multiple VMs to snapshots from the CLI](https://github.com/vmware/pyvmomi-community-samples/pull/483)
 - Uses the pyVmomi Python library to revert vSphere VMs to their respective snapshots
 
-## Tutorials
+# [Cheatsheets](https://github.com/tyler-hitzeman/cheatsheets)
+Handy cheatsheets for Unix/Linux developers and system administrators
+
+# Tutorials
 ### Cassandra
 [Enable JMX on a Cassandra Cluster](cassandra/cassandra-jconsole-monitor.md)
 - JMX allows you to get metrics on the performance of a Cassandra node
@@ -34,6 +36,7 @@ These are scripts, programs, and tutorials for projects that I have completed. I
 [Automatically send GitLab backups to AWS S3](gitlab/backup-recover.md)
 
 [Recover from GitLab backups](gitlab/backup-recover.md)
+- What good are you backups if you can't recover from them?
 
 [Troubleshooting](gitlab/troubleshooting.md)
 
