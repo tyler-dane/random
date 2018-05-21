@@ -16,6 +16,10 @@ These are programs, cheatsheets, and tutorials for projects that I have complete
 Handy cheatsheets for Unix/Linux developers and system administrators
 
 # Tutorials
+ 
+### [Bacula](https://github.com/tyler-hitzeman/bacula)
+- Backups are important. Bacula, an open-source client/server backup program, may be a good option for those intersted in automating their backups. 
+
 ### Cassandra
 [Enable JMX on a Cassandra Cluster](cassandra/cassandra-jconsole-monitor.md)
 - JMX allows you to get metrics on the performance of a Cassandra node
