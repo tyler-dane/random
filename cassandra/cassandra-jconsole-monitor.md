@@ -60,7 +60,7 @@ firewall-cmd --zone=public --add-port=7000-7001/tcp --permanent
 firewall-cmd --reload
 ```
 
-- See [Cassandra Firewall Settings](https://docs.datastax.com/en/cassandra/2.1/cassandra/security/secureFireWall_r.html) [datastax.com]
+- See [Cassandra Firewall Settings](https://docs.datastax.com/en/cassandra/2.1/cassandra/security/secureFireWall_r.html) [datastax.com] for more info
 
 ## Restart Cassandra (step 6)
 ```
