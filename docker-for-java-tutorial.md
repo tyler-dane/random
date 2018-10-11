@@ -158,8 +158,14 @@ CMD echo "This is v1"
 - `docker image rm -f $(docker image ls -aq)`
     - Remove all existing images
 
-#### Clean up
+#### Troubleshooting
+- `docker image inspect <image>
 - `docker images -a`
+
+#### Clean up
+
+- `docker image prune`
+    - removes unused images
 - `docker system prune`
     - removes dangling resources (images, containers, volumes not associated with container)
 - `docker system prune -a`
