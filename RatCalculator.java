@@ -1,6 +1,3 @@
-package java_basics.poison_challenge;
-
-
 public class RatCalculator {
 
     /** Given number of glasses that could contain poison, returns minimum number of rats required */
