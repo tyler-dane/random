@@ -36,6 +36,9 @@ Handy cheatsheets for Unix/Linux developers and system administrators
 - Intended audience: Java developers who are new to Docker
 - Purpose: Quickly show the steps needed to set up a Java development environment using Docker. 
 
+### Git
+[Remove credentials from repository using BFG](git-clean-repo.md)
+
 ### GitLab
 [Automatically send GitLab backups to AWS S3](gitlab/backup-recover.md)
 
