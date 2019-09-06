@@ -50,11 +50,21 @@ Review if changes worked
 - Make sure sensitive data is replaced with `***REMOVED***` for previous commits
     - If not, refresh page to make sure you're not seeing the old, cached version
 
-Pull changes from your original repo (not the 'mirrored' one)
+If changes worked:
+
+rename your old repo
 ```
-cd /your/working/source/dir   # e.g. /src/my-project
-git pull
+mv my-project/ my-project-old
 ```
+
+clone a fresh copy of your repo (from the url on your git host)
+```
+git clone ....my-project.git
+```
+
+Continue working from your fresh copy
+- You need to do this because your original repo will have 'uncommitted' files, and committing them will put you back where you started. So, start 'over' with this new, clean
+repo
 
 
 ### References: 
