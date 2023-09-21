@@ -12,8 +12,6 @@ Make copy of the repo you want to clean
 ```
 cd /src/backup-repos
 git clone --mirror git://example.com/my-project.git
-# if you run into an error like:  ! [remote rejected] refs/pull/1/head -> refs/pull/1/head (deny updating a hidden ref),
-# run git clone --bare instead
 ```
 ----
 
@@ -68,7 +66,20 @@ Continue working from your fresh copy
 - You need to do this because your original repo will have 'uncommitted' files, and committing them will put you back where you started. So, start 'over' with this new, clean
 repo
 
+### Troubleshooting
+Do this if you run into the hidden ref error:
+```! [remote rejected] refs/pull/1/head -> refs/pull/1/head (deny updating a hidden ref),do this:```
 
+This happens because the sensitive info is in PRs from the old repo.
+Fix it by cloning without the PRs and pushing to a new repo.
+
+Create new git repo in GitHub, then:
+
+```
+git clone --bare https://github.com/exampleuser/old-repository.git
+cd old-repository
+git push --mirror https://github.com/exampleuser/new-repository.git
+```
 ### References: 
 - [Removing Keys, Passwords and Other Sensitive Data from Old Github Commits on OSX](https://medium.com/@rhoprhh/removing-keys-passwords-and-other-sensitive-data-from-old-github-commits-on-osx-2fb903604a56)
 
