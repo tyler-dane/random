@@ -1,66 +1,110 @@
-# Remove large filesand sensitive info from repo using [BFG](https://rtyley.github.io/bfg-repo-cleaner/)
+# Remove sensitive info from repo using [BFG](https://rtyley.github.io/bfg-repo-cleaner/)
 
-## Prep
+- [Remove sensitive info from repo using BFG](#remove-sensitive-info-from-repo-using-bfg)
+  - [Did you mess up?](#did-you-mess-up)
+  - [How to clean current code (HEAD)](#how-to-clean-current-code-head)
+    - [Save link to commits (optional)](#save-link-to-commits-optional)
+    - [Clean up your code on the `main` branch](#clean-up-your-code-on-the-main-branch)
+  - [How to clean history - Remove sensitive info from repo using BFG](#how-to-clean-history---remove-sensitive-info-from-repo-using-bfg)
+    - [Download BFG](#download-bfg)
+    - [Make copy of the repo you want to clean\*](#make-copy-of-the-repo-you-want-to-clean)
+    - [Create `credentials.txt`](#create-credentialstxt)
+    - [Run BFG command to replace sensitive text](#run-bfg-command-to-replace-sensitive-text)
+    - [Check command output and output files to verify](#check-command-output-and-output-files-to-verify)
+    - [Review if changes worked](#review-if-changes-worked)
+    - [Clone a fresh copy of your repo](#clone-a-fresh-copy-of-your-repo)
+    - [Continue working from your fresh copy](#continue-working-from-your-fresh-copy)
+  - [Troubleshooting](#troubleshooting)
+  - [Bonus: Remove large files:](#bonus-remove-large-files)
+  - [Appendix](#appendix)
+    - [References](#references)
+    - [Output from replace text command:](#output-from-replace-text-command)
 
-Save link to commits on GitHub with dirty files
+## Did you mess up?
 
-- Will make it easier to confirm it worked later
+You’ve probably committed sensitive information that you don’t want others to see (e.g. passwords, API secrets, emails).
 
-Clean up your code on the `main` branch and make commit first
+Not sure? Try running these commands from the root of your project, replacing `YOUR_SECRET` with any sensitive text you’re aware of.
 
+```bash
+# Search your git history to see where you
+# messed up.
+
+# If either of these give you output,
+# you've got a problem.
+
+git grep 'YOUR_SECRET' $(git rev-list --all)
+
+git log -S "YOUR_SECRET" --oneline --name-only --pretty=format:"%h %s"
+```
+
+The easiest way to fix this is remove any secrets from your HEAD and create a new repo. The downside of this approach is that you lose all your commit history, which makes your code harder to understand.
+
+If you’re willing to do some extra work to preserve your commit history, I recommend using the [BFG Repo Cleaner](https://rtyley.github.io/bfg-repo-cleaner/) tool, which removes troublesome blobs or large files.
+
+## How to clean current code (HEAD)
+
+### Save link to commits (optional)
+
+- Using the output from your search commands, find the commit hashes that include your sensitive info.
+- View the files on GitHub and bookmark the URLs. This will make it easier to confirm it worked later
+
+### Clean up your code on the `main` branch
+
+- Replace any sensitive info that's still in the HEAD of your repo.
+- Create a new commit.
 - That way, BFG can just remove the commit history and you won't have to worry about messing with current commit at HEAD
 
-Download .jar
+## How to clean history - [Remove sensitive info from repo using BFG](#remove-sensitive-info-from-repo-using-bfg)
+
+### Download [BFG](https://rtyley.github.io/bfg-repo-cleaner/)
 
 - save it to `/src/backup-repos` for the examples
 - using version 1.13.0 in examples
 
-Make copy of the repo you want to clean\*
-
-        - If you already are getting errors about PRs, see the below troubleshooting (using bare and separate repo)
+### Make copy of the repo you want to clean\*
 
 ```bash
 cd /src/backup-repos
 git clone --mirror git://example.com/my-project.git
 ```
 
+- If you're already getting errors about PRs, then some sensitive info has leaked into your PRs. See the workaround for that in the troubleshooting section (using bare and separate repo)
+
 ---
 
-## Opt1 Remove Sensitive Info
+### Create `credentials.txt`
 
-create `credentials.txt`, new item per line:
+- new item per line:
 
-```
-
+```text
 123abc!9dk
 admin@some-company.com
 secret-key123
-
 ```
 
-replace text:
+### Run BFG command to replace sensitive text
 
-```
-
+```bash
 java -jar bfg-1.13.0.jar --replace-text credentials.txt my-project.git\
-
 ```
 
-check command output and output files to verify
+### Check command output and output files to verify
 
-- `\src\backup-repos\flask-test-project.git.bfg-report\2019-09-05\14-09-43`
+`\src\backup-repos\flask-test-project.git.bfg-report\2019-09-05\14-09-43`
+
+- The output can be confusing, so compare it to the success example in the appendix below to see if everything worked.
 
 If everything looks good, change into the 'mirrored' repo and push:
 
-```
-
+```bash
 cd my-project.git # from your /src/backup-repos directory
 git reflog expire --expire=now --all && git gc --prune=now --aggressive
 git push # requires branch to be unprotected
 
 ```
 
-Review if changes worked
+### Review if changes worked
 
 - View your git repo online
 - Make sure most-recent commit doesn't have any sensitive data OR `***REMOVED***` (this would probably cause something to break)
@@ -71,26 +115,24 @@ If changes worked:
 
 rename your old repo
 
-```
-
+```bash
 mv my-project/ my-project-old
-
 ```
 
-clone a fresh copy of your repo (from the url on your git host)
+### Clone a fresh copy of your repo
 
-```
+- From the url on your git host
 
+```bash
 git clone ....my-project.git
-
 ```
 
-Continue working from your fresh copy
+### Continue working from your fresh copy
 
 - You need to do this because your original repo will have 'uncommitted' files, and committing them will put you back where you started. So, start 'over' with this new, clean
   repo
 
-### Troubleshooting
+## Troubleshooting
 
 Do this if you run into the hidden ref error:
 `! [remote rejected] refs/pull/1/head -> refs/pull/1/head (deny updating a hidden ref),do this:`
@@ -100,36 +142,35 @@ Fix it by cloning without the PRs and pushing to a new repo.
 
 Create new git repo in GitHub, then:
 
-```
-
+```bash
 git clone --bare https://github.com/exampleuser/old-repository.git
 cd old-repository
 git push --mirror https://github.com/exampleuser/new-repository.git
-
 ```
 
-## Opt 2: remove large files:
+## Bonus: Remove large files:
 
-```
+BFG can also remove large files from your history, speeding up dev time.
 
+Here's a brief example. Follow the official docs for more info.
+
+```bash
 java -jar bfg-1.13.0.jar --strip-blobs-bigger-than 100M my-project.git\
-
 ```
-
-### References:
-
-- [Removing Keys, Passwords and Other Sensitive Data from Old Github Commits on OSX](https://medium.com/@rhoprhh/removing-keys-passwords-and-other-sensitive-data-from-old-github-commits-on-osx-2fb903604a56)
 
 ## Appendix
 
-1. output from replace text command:
+### References
 
-```
+- [Removing Keys, Passwords and Other Sensitive Data from Old Github Commits on OSX](https://medium.com/@rhoprhh/removing-keys-passwords-and-other-sensitive-data-from-old-github-commits-on-osx-2fb903604a56)
 
-C:\Users\tyler.hitzeman\src\backup-repos
+### Output from replace text command:
+
+```bash
+C:\Users\tyler\src\backup-repos
 (venv) λ java -jar bfg-1.13.0.jar --replace-text credentials.txt flask-test-project.git\
 
-Using repo : C:\Users\tyler.hitzeman\src\backup-repos\flask-test-project.git
+Using repo : C:\Users\tyler\src\backup-repos\flask-test-project.git
 
 Found 48 objects to protect
 Found 2 commit-pointing refs : HEAD, refs/heads/master
@@ -145,7 +186,7 @@ the _protected_ commits still use it, it will STILL exist in your repository.
 
 Details of protected dirty content have been recorded here :
 
-C:\Users\tyler.hitzeman\src\backup-repos\flask-test-project.git.bfg-report\2019-09-05\14-09-43\protected-dirt\
+C:\Users\tyler\src\backup-repos\flask-test-project.git.bfg-report\2019-09-05\14-09-43\protected-dirt\
 
 If you _really_ want this content gone, make a manual commit that removes it,
 and then run the BFG on a fresh copy of your repo.
@@ -197,12 +238,7 @@ Updating references: 100% (1/1)
 
 In total, 26 object ids were changed. Full details are logged here:
 
-        C:\Users\tyler.hitzeman\src\backup-repos\flask-test-project.git.bfg-report\2019-09-05\14-09-43
+        C:\Users\tyler\src\backup-repos\flask-test-project.git.bfg-report\2019-09-05\14-09-43
 
 BFG run is complete! When ready, run: git reflog expire --expire=now --all && git gc --prune=now --aggressive
-
-```
-
-```
-
 ```
