@@ -1,11 +1,11 @@
-# Remove sensitive info from repo using [BFG](https://rtyley.github.io/bfg-repo-cleaner/)
+# Remove sensitive info from repo using [BGF](https://rtyley.github.io/bfg-repo-cleaner/)
 
-- [Remove sensitive info from repo using BFG](#remove-sensitive-info-from-repo-using-bfg)
+- [Remove sensitive info from repo using BGF](#remove-sensitive-info-from-repo-using-bgf)
   - [Did you mess up?](#did-you-mess-up)
   - [How to clean current code (HEAD)](#how-to-clean-current-code-head)
     - [Save link to commits (optional)](#save-link-to-commits-optional)
     - [Clean up your code on the `main` branch](#clean-up-your-code-on-the-main-branch)
-  - [How to clean history - Remove sensitive info from repo using BFG](#how-to-clean-history---remove-sensitive-info-from-repo-using-bfg)
+  - [How to remove sensitive info from repo using BFG](#how-to-remove-sensitive-info-from-repo-using-bfg)
     - [Download BFG](#download-bfg)
     - [Make copy of the repo you want to clean\*](#make-copy-of-the-repo-you-want-to-clean)
     - [Create `credentials.txt`](#create-credentialstxt)
@@ -15,10 +15,11 @@
     - [Clone a fresh copy of your repo](#clone-a-fresh-copy-of-your-repo)
     - [Continue working from your fresh copy](#continue-working-from-your-fresh-copy)
   - [Troubleshooting](#troubleshooting)
-  - [Bonus: Remove large files:](#bonus-remove-large-files)
+    - [Error: `deny updating a hidden ref`](#error-deny-updating-a-hidden-ref)
   - [Appendix](#appendix)
+    - [Remove large files](#remove-large-files)
     - [References](#references)
-    - [Output from replace text command:](#output-from-replace-text-command)
+    - [Output from replace text command](#output-from-replace-text-command)
 
 ## Did you mess up?
 
@@ -33,14 +34,14 @@ Not sure? Try running these commands from the root of your project, replacing `Y
 # If either of these give you output,
 # you've got a problem.
 
-git grep 'YOUR_SECRET' $(git rev-list --all)
+git grep "YOUR_SECRET" $(git rev-list --all)
 
 git log -S "YOUR_SECRET" --oneline --name-only --pretty=format:"%h %s"
 ```
 
 The easiest way to fix this is remove any secrets from your HEAD and create a new repo. The downside of this approach is that you lose all your commit history, which makes your code harder to understand.
 
-If you’re willing to do some extra work to preserve your commit history, I recommend using the [BFG Repo Cleaner](https://rtyley.github.io/bfg-repo-cleaner/) tool, which removes troublesome blobs or large files.
+If you’re willing to do some extra work to preserve your commit history, use the [BFG Repo Cleaner](https://rtyley.github.io/bfg-repo-cleaner/) tool too remove troublesome blobs or large files.
 
 ## How to clean current code (HEAD)
 
@@ -55,7 +56,7 @@ If you’re willing to do some extra work to preserve your commit history, I rec
 - Create a new commit.
 - That way, BFG can just remove the commit history and you won't have to worry about messing with current commit at HEAD
 
-## How to clean history - [Remove sensitive info from repo using BFG](#remove-sensitive-info-from-repo-using-bfg)
+## How to remove sensitive info from repo using BFG
 
 ### Download [BFG](https://rtyley.github.io/bfg-repo-cleaner/)
 
@@ -75,7 +76,7 @@ git clone --mirror git://example.com/my-project.git
 
 ### Create `credentials.txt`
 
-- new item per line:
+new secret per line:
 
 ```text
 123abc!9dk
@@ -91,7 +92,7 @@ java -jar bfg-1.13.0.jar --replace-text credentials.txt my-project.git\
 
 ### Check command output and output files to verify
 
-`\src\backup-repos\flask-test-project.git.bfg-report\2019-09-05\14-09-43`
+Find report, which will be saved inside your repo's `.git` folder. For example: `~\src\backup-repos\flask-test-project.git.bfg-report\2019-09-05\14-09-43`
 
 - The output can be confusing, so compare it to the success example in the appendix below to see if everything worked.
 
@@ -111,9 +112,7 @@ git push # requires branch to be unprotected
 - Make sure sensitive data is replaced with `***REMOVED***` for previous commits
   - If not, refresh page to make sure you're not seeing the old, cached version
 
-If changes worked:
-
-rename your old repo
+If changes worked, rename your old repo
 
 ```bash
 mv my-project/ my-project-old
@@ -129,18 +128,25 @@ git clone ....my-project.git
 
 ### Continue working from your fresh copy
 
-- You need to do this because your original repo will have 'uncommitted' files, and committing them will put you back where you started. So, start 'over' with this new, clean
-  repo
+You need to do this because your original repo will have 'uncommitted' files, and committing them will put you back where you started. So, 'start over' with this new, clean repo
 
 ## Troubleshooting
 
-Do this if you run into the hidden ref error:
-`! [remote rejected] refs/pull/1/head -> refs/pull/1/head (deny updating a hidden ref),do this:`
+### Error: `deny updating a hidden ref`
+
+The error:
+
+```bash
+! [remote rejected] refs/pull/1/head -> refs/pull/1/head (deny updating a hidden ref)
+```
 
 This happens because the sensitive info is in PRs from the old repo.
+
 Fix it by cloning without the PRs and pushing to a new repo.
 
-Create new git repo in GitHub, then:
+Create new git repo in GitHub.
+
+Then:
 
 ```bash
 git clone --bare https://github.com/exampleuser/old-repository.git
@@ -148,7 +154,9 @@ cd old-repository
 git push --mirror https://github.com/exampleuser/new-repository.git
 ```
 
-## Bonus: Remove large files:
+## Appendix
+
+### Remove large files
 
 BFG can also remove large files from your history, speeding up dev time.
 
@@ -158,13 +166,11 @@ Here's a brief example. Follow the official docs for more info.
 java -jar bfg-1.13.0.jar --strip-blobs-bigger-than 100M my-project.git\
 ```
 
-## Appendix
-
 ### References
 
 - [Removing Keys, Passwords and Other Sensitive Data from Old Github Commits on OSX](https://medium.com/@rhoprhh/removing-keys-passwords-and-other-sensitive-data-from-old-github-commits-on-osx-2fb903604a56)
 
-### Output from replace text command:
+### Output from replace text command
 
 ```bash
 C:\Users\tyler\src\backup-repos
