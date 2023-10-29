@@ -41,7 +41,7 @@ git log -S "YOUR_SECRET" --oneline --name-only --pretty=format:"%h %s"
 
 The easiest way to fix this is remove any secrets from your HEAD and create a new repo. The downside of this approach is that you lose all your commit history, which makes your code harder to understand.
 
-If you’re willing to do some extra work to preserve your commit history, use the [BFG Repo Cleaner](https://rtyley.github.io/bfg-repo-cleaner/) tool too remove troublesome blobs or large files.
+If you’re willing to do some extra work to preserve your commit history, use the [BFG Repo Cleaner](https://rtyley.github.io/bfg-repo-cleaner/) tool to remove troublesome blobs or large files.
 
 ## How to clean current code (HEAD)
 
@@ -109,8 +109,9 @@ git push # requires branch to be unprotected
 
 - View your git repo online
 - Make sure most-recent commit doesn't have any sensitive data OR `***REMOVED***` (this would probably cause something to break)
-- Make sure sensitive data is replaced with `***REMOVED***` for previous commits
+- Make sure sensitive data from previous commits replaced with `***REMOVED***`
   - If not, refresh page to make sure you're not seeing the old, cached version
+  - See [`git-search-log.sh`](./git-search-log.sh) for an example on how to automate this review process.
 
 If changes worked, rename your old repo
 
