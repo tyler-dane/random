@@ -19,7 +19,7 @@
   - [Appendix](#appendix)
     - [Remove large files](#remove-large-files)
     - [References](#references)
-    - [Output from replace text command](#output-from-replace-text-command)
+    - [Example output from replace text command](#example-output-from-replace-text-command)
 
 ## Did you mess up?
 
@@ -108,10 +108,11 @@ git push # requires branch to be unprotected
 ### Review if changes worked
 
 - View your git repo online
-- Make sure most-recent commit doesn't have any sensitive data OR `***REMOVED***` (this would probably cause something to break)
 - Make sure sensitive data from previous commits replaced with `***REMOVED***`
   - If not, refresh page to make sure you're not seeing the old, cached version
   - See [`git-search-log.sh`](./git-search-log.sh) for an example on how to automate this review process.
+- Make sure most-recent commit doesn't have any sensitive data OR `***REMOVED***`
+  - That replacement text should only show up in previous commits (cuz you cleaned up your HEAD, remember).
 
 If changes worked, rename your old repo
 
@@ -121,7 +122,7 @@ mv my-project/ my-project-old
 
 ### Clone a fresh copy of your repo
 
-- From the url on your git host
+- Get the origin URL that ends with `.git` from GitHub
 
 ```bash
 git clone ....my-project.git
@@ -145,9 +146,9 @@ This happens because the sensitive info is in PRs from the old repo.
 
 Fix it by cloning without the PRs and pushing to a new repo.
 
-Create new git repo in GitHub.
+1. Create new git repo in GitHub.
 
-Then:
+2. Then clone bare (without PRs) the old repo and push to the new
 
 ```bash
 git clone --bare https://github.com/exampleuser/old-repository.git
@@ -171,7 +172,7 @@ java -jar bfg-1.13.0.jar --strip-blobs-bigger-than 100M my-project.git\
 
 - [Removing Keys, Passwords and Other Sensitive Data from Old Github Commits on OSX](https://medium.com/@rhoprhh/removing-keys-passwords-and-other-sensitive-data-from-old-github-commits-on-osx-2fb903604a56)
 
-### Output from replace text command
+### Example output from replace text command
 
 ```bash
 C:\Users\tyler\src\backup-repos
