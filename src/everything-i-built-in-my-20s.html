@@ -1,0 +1,795 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Everything I Built in My 20s</title>
+    <style>
+      /* cspell:disable-file */
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        padding-inline-start: 0;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      .page-description {
+        margin-bottom: 2em;
+      }
+
+      .simple-table {
+        margin-top: 1em;
+        font-size: 0.875rem;
+        empty-cells: show;
+      }
+      .simple-table td {
+        height: 29px;
+        min-width: 120px;
+      }
+
+      .simple-table th {
+        height: 29px;
+        min-width: 120px;
+      }
+
+      .simple-table-header-color {
+        background: rgb(247, 246, 243);
+        color: black;
+      }
+      .simple-table-header {
+        font-weight: 500;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      .sans {
+        font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif,
+          "Segoe UI Emoji", "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono",
+          "Liberation Mono", Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, ui-serif, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <article id="14853979-bff3-47ff-8e63-738a575b44da" class="page sans">
+      <header>
+        <h1 class="page-title">Everything I Built in My 20s</h1>
+        <p class="page-description"></p>
+      </header>
+      <div class="page-body">
+        <table id="463daa8a-6444-453e-85a4-bf30e675cbb0" class="simple-table">
+          <thead class="simple-table-header">
+            <tr id="7b63c656-1710-4cab-bf9c-2a0706709795">
+              <th
+                id="`MUn"
+                class="block-color-gray_background simple-table-header"
+                style="width: 110px"
+              >
+                Project
+              </th>
+              <th
+                id="pO}F"
+                class="block-color-gray_background simple-table-header"
+                style="width: 96px"
+              >
+                Type
+              </th>
+              <th
+                id="vk[O"
+                class="block-color-gray_background simple-table-header"
+                style="width: 77px"
+              >
+                Duration
+              </th>
+              <th
+                id="Xf&lt;l"
+                class="block-color-gray_background simple-table-header"
+                style="width: 85px"
+              >
+                Goal
+              </th>
+              <th
+                id="N@tN"
+                class="block-color-gray_background simple-table-header"
+              >
+                Why Stopped
+              </th>
+              <th
+                id="}YXG"
+                class="block-color-gray_background simple-table-header"
+              >
+                Outcome
+              </th>
+              <th
+                id="AuPl"
+                class="block-color-gray_background simple-table-header"
+              >
+                Skills
+              </th>
+              <th
+                id="&lt;hmH"
+                class="block-color-gray_background simple-table-header"
+              >
+                Unexpected Benefits
+              </th>
+              <th
+                id="yYTJ"
+                class="block-color-gray_background simple-table-header"
+              >
+                Lesson
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="50213ad2-b1d6-430f-aeca-b96339243c89">
+              <td id="`MUn" class="" style="width: 110px">Compass Calendar</td>
+              <td id="pO}F" class="" style="width: 96px">App</td>
+              <td id="vk[O" class="" style="width: 77px">3+ years</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">Viable business</td>
+              <td id="N@tN" class="">Went broke</td>
+              <td id="}YXG" class="">
+                Open-sourced -$40,000+ costs -$350,000+ opportunity cost
+              </td>
+              <td id="AuPl" class="">Code, marketing</td>
+              <td id="&lt;hmH" class="">
+                Healthier relationship with mortality
+              </td>
+              <td id="yYTJ" class="">
+                I can’t work on things I don’t care about
+              </td>
+            </tr>
+            <tr id="f0423fa8-8596-442a-8ae6-62fdc6a0af0d">
+              <td id="`MUn" class="" style="width: 110px">Fitness club</td>
+              <td id="pO}F" class="" style="width: 96px">Community</td>
+              <td id="vk[O" class="" style="width: 77px">3 years</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">
+                Healthy lifestyle, friends
+              </td>
+              <td id="N@tN" class="">Needed to focus on finding job</td>
+              <td id="}YXG" class="">Healthy friends, 60 members</td>
+              <td id="AuPl" class="">Community building</td>
+              <td id="&lt;hmH" class="">Girlfriend</td>
+              <td id="yYTJ" class="">Building the community you want is fun</td>
+            </tr>
+            <tr id="b9f364d4-7670-415a-98ed-9b14ac32b3a4">
+              <td id="`MUn" class="" style="width: 110px">Tech club</td>
+              <td id="pO}F" class="" style="width: 96px">Community</td>
+              <td id="vk[O" class="" style="width: 77px">1 year</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">
+                More tech friends
+              </td>
+              <td id="N@tN" class="">
+                Failed to get sponsors, felt unappreciated
+              </td>
+              <td id="}YXG" class="">600 Meetup members, 200 on Discord</td>
+              <td id="AuPl" class="">Community building</td>
+              <td id="&lt;hmH" class="">Free stuff</td>
+              <td id="yYTJ" class="">Niching works</td>
+            </tr>
+            <tr id="6b5afe7b-c152-4fc7-9acf-b0cd91229520">
+              <td id="`MUn" class="" style="width: 110px">
+                Productivity Challenge
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Community</td>
+              <td id="vk[O" class="" style="width: 77px">15 days</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">
+                Positive peer pressure
+              </td>
+              <td id="N@tN" class="">Too much work signing ppl up</td>
+              <td id="}YXG" class="">Very productive 2 weeks</td>
+              <td id="AuPl" class="">
+                Community building, sales, copy-writing
+              </td>
+              <td id="&lt;hmH" class="">
+                Talking with others made me come to decisions faster
+              </td>
+              <td id="yYTJ" class="">
+                Focus on businesses / business owners — they value time most
+              </td>
+            </tr>
+            <tr id="8c90219f-8fa3-438b-8f9b-145faf181ef1">
+              <td id="`MUn" class="" style="width: 110px">
+                Mobile App Community Manager
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Community</td>
+              <td id="vk[O" class="" style="width: 77px">9 months</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">Keep app alive</td>
+              <td id="N@tN" class="">
+                Couldn’t attract funding / contributors
+              </td>
+              <td id="}YXG" class="">
+                Launched app on Play Store, watched it slowly die
+              </td>
+              <td id="AuPl" class="">Community building, open source</td>
+              <td id="&lt;hmH" class="">Job interview</td>
+              <td id="yYTJ" class="">
+                Open-source projects need strong leaders. Consensus takes too
+                long.
+              </td>
+            </tr>
+            <tr id="27f4acab-8fad-4db0-8b86-8662e7763406">
+              <td id="`MUn" class="" style="width: 110px">Fiction book</td>
+              <td id="pO}F" class="" style="width: 96px">Book</td>
+              <td id="vk[O" class="" style="width: 77px">
+                1.5 years (2014-15)
+              </td>
+              <td id="Xf&lt;l" class="" style="width: 85px">Creative outlet</td>
+              <td id="N@tN" class="">Finished it</td>
+              <td id="}YXG" class="">None - never shared with anyone</td>
+              <td id="AuPl" class="">Writing, discipline</td>
+              <td id="&lt;hmH" class="">Self-confidence</td>
+              <td id="yYTJ" class="">
+                Keep writing, but don’t make it sole focus (too isolating)
+              </td>
+            </tr>
+            <tr id="6adbe21a-6aa6-46e0-b81e-320b6e205a6c">
+              <td id="`MUn" class="" style="width: 110px">YouTube Channel</td>
+              <td id="pO}F" class="" style="width: 96px">Content</td>
+              <td id="vk[O" class="" style="width: 77px"></td>
+              <td id="Xf&lt;l" class="" style="width: 85px">Grow audience</td>
+              <td id="N@tN" class="">n/a - ongoing</td>
+              <td id="}YXG" class="">43 videos, 554 subs in 2 years</td>
+              <td id="AuPl" class="">Video editing, story telling</td>
+              <td id="&lt;hmH" class="">New friends</td>
+              <td id="yYTJ" class="">
+                Technical skill + story telling is a powerful combo for
+                discovery
+              </td>
+            </tr>
+            <tr id="aaff3b42-71fd-47bf-8535-1deba1cde10c">
+              <td id="`MUn" class="" style="width: 110px">
+                Blog v1: essays, personal stories
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Content</td>
+              <td id="vk[O" class="" style="width: 77px">2 years</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">Creative outlet</td>
+              <td id="N@tN" class="">Realized I need to niche</td>
+              <td id="}YXG" class="">
+                Kept alive for years before moving to new site. Time-consuming
+                to maintain
+              </td>
+              <td id="AuPl" class="">Design, writing, personal branding</td>
+              <td id="&lt;hmH" class="">Girlfriend, German pen pal</td>
+              <td id="yYTJ" class="">
+                Putting good things out there and trusting that something will
+                happen works
+              </td>
+            </tr>
+            <tr id="ca21183f-eb07-4f0d-8c93-a0ba7e5c10bc">
+              <td id="`MUn" class="" style="width: 110px">
+                Blog v2: Deep dive on Chronic Pain
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Content</td>
+              <td id="vk[O" class="" style="width: 77px">3 months</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">
+                Inspire more research
+              </td>
+              <td id="N@tN" class="">
+                Discouraged by lack of enthusiasm around topic
+              </td>
+              <td id="}YXG" class="">a few thousand views, no known changes</td>
+              <td id="AuPl" class="">Writing, research</td>
+              <td id="&lt;hmH" class="">Improved mental health</td>
+              <td id="yYTJ" class="">I can’t change people’s mind.</td>
+            </tr>
+            <tr id="98c8973a-12df-4b20-93b0-e11d23fbdccf">
+              <td id="`MUn" class="" style="width: 110px">
+                Blog v3: Tech Tutorials
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Content</td>
+              <td id="vk[O" class="" style="width: 77px">2 years</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">
+                Branding, get job
+              </td>
+              <td id="N@tN" class="">n/a - ongoing</td>
+              <td id="}YXG" class="">
+                A few hundred views, 5 GitHub stars, 7 forks, jobs
+              </td>
+              <td id="AuPl" class="">Tech, documentation</td>
+              <td id="&lt;hmH" class="">
+                Frequently searched Google for answer and found own docs
+              </td>
+              <td id="yYTJ" class="">
+                Documenting your solutions as you go saves you and others time
+              </td>
+            </tr>
+            <tr id="5b8cfb8e-0ec0-43ff-906d-2a903d1dc218">
+              <td id="`MUn" class="" style="width: 110px">
+                Newsletter: Time Management for Happy Ppl
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Content</td>
+              <td id="vk[O" class="" style="width: 77px">3 months</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">
+                Creative outlet, grow app users
+              </td>
+              <td id="N@tN" class="">Wasn’t getting new subscribers</td>
+              <td id="}YXG" class="">15 issues, ~30 subscribers</td>
+              <td id="AuPl" class="">Writing</td>
+              <td id="&lt;hmH" class="">
+                More clarity about what makes me happy
+              </td>
+              <td id="yYTJ" class="">Discovery is my bottleneck</td>
+            </tr>
+            <tr id="11789353-e020-4a62-91ca-0be2305ce4c4">
+              <td id="`MUn" class="" style="width: 110px">
+                Newsletter v2: Compass Changelog
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Content</td>
+              <td id="vk[O" class="" style="width: 77px">3 months</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">
+                Attract investors, early users
+              </td>
+              <td id="N@tN" class="">Ran out of runway for app</td>
+              <td id="}YXG" class="">
+                6 issues, more subs, 3 interested investors, 5 potential
+                cofounders
+              </td>
+              <td id="AuPl" class="">Writing</td>
+              <td id="&lt;hmH" class="">Realized I don’t want to raise VC</td>
+              <td id="yYTJ" class="">Discovery is my bottleneck</td>
+            </tr>
+            <tr id="19ff5cf4-8de7-47d3-9fc2-f728807ceafd">
+              <td id="`MUn" class="" style="width: 110px">
+                Podcast v1: interviewing friends
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Content</td>
+              <td id="vk[O" class="" style="width: 77px">6 months</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">Fun convos</td>
+              <td id="N@tN" class="">Minimal audience growth</td>
+              <td id="}YXG" class="">573 downloads in 6 years</td>
+              <td id="AuPl" class="">Audio editing, interview prep</td>
+              <td id="&lt;hmH" class="">Less lonely</td>
+              <td id="yYTJ" class="">
+                Podcasts as supplement to real connection, not replacement
+              </td>
+            </tr>
+            <tr id="3559f45d-6924-4b7f-ac74-378992c93815">
+              <td id="`MUn" class="" style="width: 110px">
+                Podcast v2: Deep dive on Chronic Pain
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Content</td>
+              <td id="vk[O" class="" style="width: 77px">6 months</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">
+                Increase awareness, give back
+              </td>
+              <td id="N@tN" class="">Minimal audience growth</td>
+              <td id="}YXG" class="">515 downloads in 4 years</td>
+              <td id="AuPl" class="">
+                Story-telling, audio-editing, outsourcing
+              </td>
+              <td id="&lt;hmH" class="">Closer with family</td>
+              <td id="yYTJ" class="">
+                Don’t over-invest in content concepts — validate first
+              </td>
+            </tr>
+            <tr id="4b18041a-cacb-4064-9f3c-bb3931324c88">
+              <td id="`MUn" class="" style="width: 110px">
+                Podcast v3: App Deep Dives
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Content</td>
+              <td id="vk[O" class="" style="width: 77px">10 months</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">Grow audience</td>
+              <td id="N@tN" class="">
+                Minimal audience growth, hard to balance with coding
+              </td>
+              <td id="}YXG" class="">1088 downloads in 2 years</td>
+              <td id="AuPl" class="">
+                Story-telling, audio-editing, outsourcing
+              </td>
+              <td id="&lt;hmH" class="">New friends</td>
+              <td id="yYTJ" class="">Focus on the thing that makes $</td>
+            </tr>
+            <tr id="599914be-b627-4f05-a837-0abe1a3030f7">
+              <td id="`MUn" class="" style="width: 110px">
+                Podcast v4: App updates
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Content</td>
+              <td id="vk[O" class="" style="width: 77px">8 months</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">Grow audience</td>
+              <td id="N@tN" class="">Wasn’t attracting new listeners</td>
+              <td id="}YXG" class="">303 downloads in 1 year</td>
+              <td id="AuPl" class="">Story-telling, audio-editing</td>
+              <td id="&lt;hmH" class="">Improved mental health</td>
+              <td id="yYTJ" class="">Need to get better at discovery</td>
+            </tr>
+            <tr id="df2f3027-724b-4f56-8d42-f480d6bc0ac5">
+              <td id="`MUn" class="" style="width: 110px">
+                App that backs up GDrive files
+              </td>
+              <td id="pO}F" class="" style="width: 96px">App</td>
+              <td id="vk[O" class="" style="width: 77px">3 months</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">Peace of mind</td>
+              <td id="N@tN" class="">
+                Finished POC, realized too much work to build full version
+              </td>
+              <td id="}YXG" class="">No peace of mind</td>
+              <td id="AuPl" class="">
+                API design, Java, how to organize files better
+              </td>
+              <td id="&lt;hmH" class="">
+                Realized I needed to learn frontend dev
+              </td>
+              <td id="yYTJ" class="">
+                Don’t build things that Google will build anyway
+              </td>
+            </tr>
+            <tr id="d36764b7-5fb2-4392-bce5-e7fc9d511457">
+              <td id="`MUn" class="" style="width: 110px">
+                Raspberry Pi helmet
+              </td>
+              <td id="pO}F" class="" style="width: 96px">Physical Product</td>
+              <td id="vk[O" class="" style="width: 77px">3 months</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">Viable business</td>
+              <td id="N@tN" class="">No one wanted it</td>
+              <td id="}YXG" class="">-$200</td>
+              <td id="AuPl" class="">Hardware, user interviews</td>
+              <td id="&lt;hmH" class="">Learned to rappel</td>
+              <td id="yYTJ" class="">Keep validating before over-committing</td>
+            </tr>
+            <tr id="3536f421-4da2-455b-88eb-7dd024545d5c">
+              <td id="`MUn" class="" style="width: 110px">
+                Sync client’s contacts
+              </td>
+              <td id="pO}F" class="" style="width: 96px">App</td>
+              <td id="vk[O" class="" style="width: 77px">3 months</td>
+              <td id="Xf&lt;l" class="" style="width: 85px">
+                See if I like contracting
+              </td>
+              <td id="N@tN" class="">client didn’t want to keep investing</td>
+              <td id="}YXG" class="">Finished v1</td>
+              <td id="AuPl" class="">Code, how to film code for content</td>
+              <td id="&lt;hmH" class="">Realized power of CRMs</td>
+              <td id="yYTJ" class="">
+                Focus on clients who are willing to pay
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+    <span class="sans" style="font-size: 14px; padding-top: 2em"></span>
+  </body>
+</html>
